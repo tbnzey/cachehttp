@@ -1,0 +1,21 @@
+// 通用配置 (PS:在project的gradle添加)apply from: 'commont.gradle'
+ext {
+    cfg_packageName="com.example.maze.cachehttp"
+    cfg_buildToolsVersion="23.0.2"
+    cfg_compileVersion=23
+    cfg_minSdk=14
+    cfg_targetSdk=23
+    cfg_version_code=100
+    cfg_version_name="1.0.0"
+    cfg_gradleVersion="2.2.2"
+    libraries = [
+            recyclerview : "23.2.0",
+            support : "23.1.0",
+            appcompat : "23.1.0",
+            okhttp3 : "3.2.0",
+            rxjava : "1.1.0",
+            rxandroid : "1.1.0",
+            retrofit : "2.1.0",
+            adapter_rxjava : "2.1.0"
+    ]
+}

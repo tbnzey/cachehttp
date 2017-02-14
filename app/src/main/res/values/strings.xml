@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CacheHttp</string>
+
+    <string name="test_url">readbook/40403_1.html</string>
+</resources>
