@@ -1,4 +1,4 @@
-package com.example.maze.cachehttp.Data.http.converterfactory;
+package com.example.maze.cachehttp.Data.retrofit.converterfactory;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;

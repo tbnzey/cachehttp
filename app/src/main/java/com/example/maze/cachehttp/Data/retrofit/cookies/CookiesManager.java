@@ -1,4 +1,4 @@
-package com.example.maze.cachehttp.Data.http.cookies;
+package com.example.maze.cachehttp.Data.retrofit.cookies;
 /**
  * Created by maze on 2017/2/13.
  */

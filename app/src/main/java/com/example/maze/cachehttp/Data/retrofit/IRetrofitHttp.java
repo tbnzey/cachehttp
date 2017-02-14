@@ -1,4 +1,4 @@
-package com.example.maze.cachehttp.Data.http;
+package com.example.maze.cachehttp.Data.retrofit;
 /**
  * Created by maze on 2017/2/13.
  */

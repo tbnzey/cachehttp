@@ -1,4 +1,4 @@
-package com.example.maze.cachehttp.Data.http.service;
+package com.example.maze.cachehttp.Data.retrofit.service;
 
 import java.util.Map;
 

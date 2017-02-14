@@ -1,4 +1,4 @@
-package com.example.maze.cachehttp.Data.http.exception;
+package com.example.maze.cachehttp.Data.retrofit.exception;
 
 /**
  * 异常处理类，将异常包装成一个 FaultException ,抛给上层统一处理

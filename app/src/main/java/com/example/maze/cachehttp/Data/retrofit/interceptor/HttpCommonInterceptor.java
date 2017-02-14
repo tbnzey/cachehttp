@@ -1,4 +1,4 @@
-package com.example.maze.cachehttp.Data.http.interceptor;
+package com.example.maze.cachehttp.Data.retrofit.interceptor;
 
 import android.util.Log;
 

@@ -8,8 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import com.example.maze.cachehttp.Data.http.IRetrofitHttp;
-import com.example.maze.cachehttp.Data.http.RetrofitServiceManager;
+import com.example.maze.cachehttp.Data.retrofit.IRetrofitHttp;
+import com.example.maze.cachehttp.Data.HttpData;
 import com.example.maze.cachehttp.Entity.BaseDto;
 
 /**
@@ -30,7 +30,7 @@ public class TestMain extends AppCompatActivity {
         setContentView(R.layout.testmain);
         textView = (TextView) findViewById(R.id.textView);
 
-        new RetrofitServiceManager.Build()
+        new HttpData.Build()
                 .setUrl(R.string.test_url)
                 .setRetrofitHttp(new IRetrofitHttp() {
                     @Override
