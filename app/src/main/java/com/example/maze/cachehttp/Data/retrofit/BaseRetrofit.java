@@ -5,6 +5,7 @@ package com.example.maze.cachehttp.Data.retrofit;
 
 import com.example.maze.cachehttp.Common.Constant;
 import com.example.maze.cachehttp.Data.retrofit.converterfactory.StringConverter;
+import com.example.maze.cachehttp.Data.retrofit.converterfactory.gson.GsonConverterFactory;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -40,27 +41,20 @@ public abstract class BaseRetrofit {
     protected static Retrofit getRetrofit() {
         if (null == mRetrofit) {
             if (null == mOkHttpClient) {
-                mOkHttpClient = OkHttpClient3.getOkHttpClient();
+                mOkHttpClient = OkHttp3.getOkHttpClient();
             }
-            // 添加公共参数拦截器
-            /*
-            HttpCommonInterceptor commonInterceptor = new HttpCommonInterceptor.Builder()
-                    .addHeaderParams("","")
-                    .build();
-            builder.addInterceptor(commonInterceptor);
-            */
             // 创建Retrofit
             mRetrofit = new Retrofit.Builder()
-                    //设置服务器路径
-                    .baseUrl(Constant.API_SERVER)
-                    //设置使用okhttp网络请求
-                    .client(OkHttpClient3.getOkHttpClient())
-                    .addConverterFactory(StringConverter.StringConverterFactory.create())
-                    //添加转化库，默认是Gson
-//                .addConverterFactory(GsonConverterFactory.create())
-                    //添加回调库，采用RxJava
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .build();
+                //设置服务器路径
+                .baseUrl(Constant.API_SERVER + "/")
+                //设置使用okhttp网络请求
+                .client(OkHttp3.getOkHttpClient())
+                .addConverterFactory(StringConverter.StringConverterFactory.create())
+                //添加转化库，默认是Gson
+                .addConverterFactory(GsonConverterFactory.create())
+                //添加回调库，采用RxJava
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
         }
         return mRetrofit;
     }

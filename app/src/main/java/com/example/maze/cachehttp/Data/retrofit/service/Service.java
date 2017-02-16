@@ -1,7 +1,12 @@
 package com.example.maze.cachehttp.Data.retrofit.service;
 
+import com.example.maze.cachehttp.Data.retrofit.BaseResponse;
+import com.example.maze.cachehttp.Entity.BaseDto;
+
 import java.util.Map;
 
+import okhttp3.internal.http.RealResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
@@ -27,7 +32,7 @@ import rx.Observable;
  * @Url //不同域网址(当@GET或@POST注解的url为全路径时（可能和baseUrl不是一个域），会直接使用注解的url的域)
  */
 
-public interface Service {
+public interface Service<T> {
 
     @FormUrlEncoded
     @POST("app/cmd/list.do")
@@ -51,10 +56,29 @@ public interface Service {
     Observable<String> listRepos(@FieldMap Map<String, Object> parms);
 
     @POST("{path}")
-    Observable<String> postPath(@Path("path") String path);
+    Observable<BaseDto> postPath(@Path("path") String path);
 
     @FormUrlEncoded
     @POST("{path}")
-    Observable<String> postPath(@Path("path") String path, @FieldMap Map<String, Object> map);
+    Observable<BaseDto> postPath(@Path("path") String path, @FieldMap Map<String, Object> map);
 
+    @POST("{path}")
+     Observable<BaseResponse<String>> postPath2(@Path("path") String path);
+
+    @FormUrlEncoded
+    @POST("{path}")
+     Observable<BaseResponse<String>> postPath2(@Path("path") String path, @FieldMap Map<String, Object> map);
+
+
+//    @POST("{path}")
+//    Call<T> postPath2(@Path("path") String path);
+//
+//    @FormUrlEncoded
+//    @POST("{path}")
+//    Call<T> postPath2(@Path("path") String path, @FieldMap Map<String, Object> map);
+
+    //*******  提交多参数表单数据（multi-part form data），可以使用@Multipart与@Part注解
+//    @Multipart
+//    @POST("/some/endpoint")
+//    Call<RealResponseBody> someEndpoint(@Part("name1") String name1, @Part("name2") String name2)
 }

@@ -2,6 +2,7 @@ package com.example.maze.cachehttp.Entity;
 
 import com.example.maze.cachehttp.Application.BaseApplication;
 import com.example.maze.cachehttp.Data.db.DBHelper;
+import com.example.maze.cachehttp.Data.retrofit.BaseResponse;
 import com.example.maze.cachehttp.Utils.Tools;
 
 import java.util.Map;
@@ -114,8 +115,9 @@ public class CacheDto extends RealmObject {
         }
     }
 
-    public Observable<String> ObservableStr(){
-        return Observable.just(getValue());
+    public Observable<BaseResponse<String>> ObservableStr(){
+//        return Observable.just(getValue());
+        return null;
     }
 
     public <T> Observable<T> Observable(){

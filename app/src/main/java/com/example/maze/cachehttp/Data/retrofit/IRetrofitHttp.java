@@ -13,26 +13,8 @@ import com.example.maze.cachehttp.Entity.BaseDto;
  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>属性描述
  * >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>方法描述
  */
-public interface IRetrofitHttp {
-    void onSuccess(final BaseDto dto);
+public interface IRetrofitHttp<T> {
+    void onSuccess(final T dto);
     void onThrowable(Throwable throwable);
     void onFinish();
-
-    class SimpleIRetrofitHttp implements IRetrofitHttp{
-
-        @Override
-        public void onSuccess(BaseDto dto) {
-
-        }
-
-        @Override
-        public void onThrowable(Throwable throwable) {
-
-        }
-
-        @Override
-        public void onFinish() {
-
-        }
-    }
 }

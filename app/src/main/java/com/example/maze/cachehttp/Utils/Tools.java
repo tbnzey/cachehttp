@@ -3,11 +3,17 @@ package com.example.maze.cachehttp.Utils;
  * Created by maze on 2017/2/14.
  */
 
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.example.maze.cachehttp.Application.BaseApplication;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -56,5 +62,26 @@ public class Tools {
             e.printStackTrace();
         }
         return stringBuffer.toString();
+    }
+
+    /*
+     *获取设备IP地址
+     */
+    public static String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    //加上这个地址获取的一定是IPV4地址  不加的话 有可能是IPV6地址
+                    if (!inetAddress.isLoopbackAddress()&& !inetAddress.isLinkLocalAddress()) {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            Log.e("VOLLEY", ex.toString());
+        }
+        return "127.0.0.1(error)";
     }
 }

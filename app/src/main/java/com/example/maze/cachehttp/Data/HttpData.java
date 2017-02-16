@@ -3,6 +3,7 @@ package com.example.maze.cachehttp.Data;
 import android.util.Log;
 
 import com.example.maze.cachehttp.Application.BaseApplication;
+import com.example.maze.cachehttp.Data.retrofit.BaseResponse;
 import com.example.maze.cachehttp.Data.retrofit.BaseRetrofit;
 import com.example.maze.cachehttp.Data.retrofit.IRetrofitHttp;
 import com.example.maze.cachehttp.Entity.BaseDto;
@@ -118,28 +119,30 @@ public class HttpData extends BaseRetrofit {
         subscribe(build.isReadCache(), build.isSaveCache(), build.getUrl(), build.getMap(), build.getRetrofitHttp());
     }
 
-    public static void subscribe(final boolean isReadCache, final boolean isSaveCache, final String url, final Map map, final IRetrofitHttp retrofitHttp){
+    public static void subscribe(final boolean isReadCache, final boolean isSaveCache,
+                                    final String url, final Map map, final IRetrofitHttp<String> retrofitHttp){
         String mapStr = map == null ? "" : "_" + Tools.map2Str(map);
         final String whereParms = url + mapStr;
         CacheDto dto = CacheDto.find(whereParms);
-        Observable retrofitObservable = map == null ? service.postPath(url) : service.postPath(url, map);
-        Observable observable = isReadCache ? // 判断是否优先读取缓存 true 判断保鲜期
+        Observable<BaseResponse<String>> retrofitObservable = map == null ? service.postPath2(url) : service.postPath2(url, map);
+        Observable<BaseResponse<String>> observable = isReadCache ? // 判断是否优先读取缓存 true 判断保鲜期
                 dto != null && dto.isOverdue() ? // 判断是否过期 true 读取缓存 false 请求网络数据
-                        dto.ObservableStr() : retrofitObservable
+                        dto.<BaseResponse<String>>ObservableStr() : retrofitObservable
                 : retrofitObservable;
         if(retrofitHttp != null) {
             observable
                     .subscribeOn(Schedulers.io())
                     .unsubscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Action1<String>() {
+                    .subscribe(new Action1<BaseResponse<String>>() {
                         @Override
-                        public void call(String t) {
-                            BaseDto baseBean = new BaseDto(t);
-                            if(isSaveCache){// && baseBean.isCode()){
-                                CacheDto.save(whereParms, t);
+                        public void call(BaseResponse<String> t) {
+                            if(isSaveCache && t.isOk()){
+                                CacheDto.save(whereParms, t.toString());
+                                retrofitHttp.onSuccess(t.getData());
+                            } else {
+
                             }
-                            retrofitHttp.onSuccess(baseBean);
                         }
                     }, new Action1<Throwable>() {
                         @Override
